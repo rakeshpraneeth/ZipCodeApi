@@ -3,4 +3,5 @@
     <string name="zipcode_hint">Zipcode</string>
     <string name="radius_hint">Radius in Km</string>
     <string name="search">Search</string>
+    <string name="generic_error_message">Sorry, Unable to retrieve the data. Please try again.</string>
 </resources>

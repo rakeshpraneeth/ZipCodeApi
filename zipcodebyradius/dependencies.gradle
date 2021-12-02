@@ -1,5 +1,4 @@
 dependencies {
-
     implementation "androidx.core:core-ktx:${rootProject.ext.coreKtx}"
     implementation "androidx.appcompat:appcompat:${rootProject.ext.appcompat}"
     implementation "com.google.android.material:material:${rootProject.ext.material}"
@@ -28,7 +27,4 @@ dependencies {
 
     androidTestImplementation "androidx.test.ext:junit:${rootProject.ext.jUnitAndroidTest}"
     androidTestImplementation "androidx.test.espresso:espresso-core:${rootProject.ext.espressoCore}"
-
-    // features
-    implementation project(':zipcodebyradius')
 }

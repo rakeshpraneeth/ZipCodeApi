@@ -19,4 +19,9 @@
         <item name="android:paddingStart">@dimen/spacing_4x</item>
         <item name="android:paddingEnd">@dimen/spacing_4x</item>
     </style>
+
+    <style name="MessageStyle">
+        <item name="android:textColor">@android:color/black</item>
+        <item name="android:textSize">@dimen/text_size_16</item>
+    </style>
 </resources>

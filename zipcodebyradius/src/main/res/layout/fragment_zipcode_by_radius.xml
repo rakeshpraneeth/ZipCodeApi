@@ -91,17 +91,29 @@
             app:layout_constraintTop_toTopOf="parent"
             app:showIf="@{viewModel.progressBar}" />
 
-        <androidx.appcompat.widget.AppCompatTextView
-            style="@style/MessageStyle"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:text="@string/generic_error_message"
+<!--        <androidx.appcompat.widget.AppCompatTextView-->
+<!--            style="@style/MessageStyle"-->
+<!--            android:layout_width="0dp"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:gravity="center"-->
+<!--            android:text="@string/generic_error_message"-->
+<!--            app:layout_constraintBottom_toBottomOf="parent"-->
+<!--            app:layout_constraintEnd_toEndOf="parent"-->
+<!--            app:layout_constraintStart_toStartOf="parent"-->
+<!--            app:layout_constraintTop_toTopOf="parent"-->
+<!--            app:showIf="@{viewModel.message}" />-->
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/zipcodeList"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginTop="@dimen/spacing_6x"
+            android:orientation="vertical"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:showIf="@{viewModel.message}" />
+            app:layout_constraintTop_toBottomOf="@+id/search" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

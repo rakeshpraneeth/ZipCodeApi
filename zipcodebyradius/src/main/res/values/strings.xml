@@ -4,4 +4,9 @@
     <string name="radius_hint">Radius in Km</string>
     <string name="search">Search</string>
     <string name="generic_error_message">Sorry, Unable to retrieve the data. Please try again.</string>
+    <string name="item_city_format">City is: %s</string>
+    <string name="item_state_format">State is: %s</string>
+    <string name="item_zipcode_format">Zipcode is: %s</string>
+    <string name="item_distance_format">Distance is: %.2f</string>
+    <string name="no_zipcodes_available_nearby">No zipcodes available nearby.</string>
 </resources>

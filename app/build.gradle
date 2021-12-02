@@ -7,12 +7,12 @@ plugins {
 apply from: 'dependencies.gradle'
 
 android {
-    compileSdk 31
+    compileSdk rootProject.ext.targetSdk
 
     defaultConfig {
         applicationId "com.krp.zipcodeapi"
-        minSdk 23
-        targetSdk 31
+        minSdk rootProject.ext.minSdk
+        targetSdk rootProject.ext.targetSdk
         versionCode 1
         versionName "1.0"
 

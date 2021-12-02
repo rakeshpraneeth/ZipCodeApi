@@ -1,6 +1,5 @@
 package com.krp.zipcodeapi.zipcodebyradius.viewmodel
 
-import android.util.Log
 import androidx.databinding.ObservableField
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -8,7 +7,10 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.krp.zipcodeapi.api.ResponseStatus
 import com.krp.zipcodeapi.zipcodebyradius.R
+import com.krp.zipcodeapi.zipcodebyradius.adapter.ZipcodeListItem
+import com.krp.zipcodeapi.zipcodebyradius.model.ZipcodeResponse
 import com.krp.zipcodeapi.zipcodebyradius.repository.ZipcodeByRadiusRepository
+import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
@@ -17,7 +19,8 @@ import kotlinx.coroutines.launch
  */
 // Enhancement: Can use dagger to inject the repository
 class ZipcodeByRadiusViewModel(
-    private val repository: ZipcodeByRadiusRepository
+    private val repository: ZipcodeByRadiusRepository,
+    private val ioDispatcher: CoroutineDispatcher
 ) : ViewModel() {
 
     /**
@@ -57,10 +60,16 @@ class ZipcodeByRadiusViewModel(
     val progressBar: LiveData<Boolean> = _progressBar
 
     /**
-     * Notifies if a message to be shown to the user.
+     * Notifies if a which message to be shown to the user.
      */
-    private val _message = MutableLiveData<Boolean>()
-    val message: LiveData<Boolean> = _message
+    private val _message = MutableLiveData<Int>()
+    val message: LiveData<Int> = _message
+
+    /**
+     * Notifies the list of items if the response is successful.
+     */
+    private val _listItems = MutableLiveData<List<ZipcodeListItem>>()
+    val listItems: LiveData<List<ZipcodeListItem>> = _listItems
 
     /**
      * Called when zipcode or radius input value is changed. If both are not null or empty, button
@@ -75,21 +84,15 @@ class ZipcodeByRadiusViewModel(
      * Uses the zipcode and radius to search for the nearby zipcodes.
      */
     fun onSearch() {
-        viewModelScope.launch(Dispatchers.IO) {
+        viewModelScope.launch(ioDispatcher) {
             val zipCodeValue = zipCode.get() ?: ""
             val radiusValue = radius.get() ?: ""
-            Log.i(TAG, "zipcode: $zipCodeValue and radius: $radiusValue")
             _progressBar.postValue(true)
-            if (_message.value != null) {
-                // There is a message being show. So hide the message.
-                _message.postValue(null)
-            }
             val response = repository.getZipcodesByRadius(zipCodeValue, radiusValue)
             if (response is ResponseStatus.Success) {
-                Log.i(TAG, "response details size is ${response.data.zipcodes?.size}")
-                onResponseObtained()
+                onResponseObtained(zipCodeValue, response.data)
             } else if (response is ResponseStatus.Failure) {
-                _message.postValue(true)
+                _message.postValue(R.string.generic_error_message)
             }
             _progressBar.postValue(false)
         }
@@ -98,10 +101,14 @@ class ZipcodeByRadiusViewModel(
     /**
      * Called when the response is successful.
      */
-    private fun onResponseObtained() {
-    }
-
-    companion object {
-        private const val TAG = "ZipcodeByRadiusViewModel"
+    private fun onResponseObtained(userProvidedZipCode: String, zipcodeResponse: ZipcodeResponse) {
+        zipcodeResponse.zipcodes?.let { zipcodes ->
+            val filteredList = zipcodes.filter { userProvidedZipCode != it.zipcode }
+            if (filteredList.isEmpty().not()) {
+                _listItems.postValue(filteredList.map { ZipcodeListItem(it) })
+            } else {
+                _message.postValue(R.string.no_zipcodes_available_nearby)
+            }
+        }
     }
 }

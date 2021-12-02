@@ -18,6 +18,8 @@ task clean(type: Delete) {
 }
 
 ext{
+    minSdk = 23
+    targetSdk = 31
     coreKtx = '1.7.0'
     appcompat = '1.4.0'
     material = '1.4.0'

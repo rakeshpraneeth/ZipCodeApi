@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="ZipcodeRadiusTILStyle">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginStart">@dimen/spacing_2x</item>
+        <item name="android:layout_marginEnd">@dimen/spacing_2x</item>
+        <item name="android:layout_marginTop">@dimen/spacing_4x</item>
+        <item name="android:layout_marginBottom">@dimen/spacing_4x</item>
+        <item name="android:background">@android:color/white</item>
+    </style>
+
+    <style name="ButtonStyle">
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:background">@color/purple_500</item>
+        <item name="android:paddingTop">@dimen/spacing_2x</item>
+        <item name="android:paddingBottom">@dimen/spacing_2x</item>
+        <item name="android:paddingStart">@dimen/spacing_4x</item>
+        <item name="android:paddingEnd">@dimen/spacing_4x</item>
+    </style>
+</resources>

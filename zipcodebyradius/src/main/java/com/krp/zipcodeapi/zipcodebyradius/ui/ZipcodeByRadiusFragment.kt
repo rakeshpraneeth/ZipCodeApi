@@ -6,8 +6,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
+import com.krp.zipcodeapi.api.ApiConsumer
 import com.krp.zipcodeapi.zipcodebyradius.R
 import com.krp.zipcodeapi.zipcodebyradius.databinding.FragmentZipcodeByRadiusBinding
+import com.krp.zipcodeapi.zipcodebyradius.repository.ZipcodeByRadiusRepositoryImpl
 import com.krp.zipcodeapi.zipcodebyradius.viewmodel.ZipcodeByRadiusViewModel
 
 /**
@@ -18,7 +20,8 @@ import com.krp.zipcodeapi.zipcodebyradius.viewmodel.ZipcodeByRadiusViewModel
 class ZipcodeByRadiusFragment : Fragment() {
 
     private lateinit var binding: FragmentZipcodeByRadiusBinding
-    private val zipcodeByRadiusViewModel = ZipcodeByRadiusViewModel()
+    private val repository = ZipcodeByRadiusRepositoryImpl(ApiConsumer.getInstance().getApiService())
+    private val zipcodeByRadiusViewModel = ZipcodeByRadiusViewModel(repository)
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -30,7 +33,6 @@ class ZipcodeByRadiusFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         with(binding){
             viewModel = zipcodeByRadiusViewModel
             lifecycleOwner = viewLifecycleOwner

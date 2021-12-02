@@ -14,6 +14,7 @@ import com.krp.zipcodeapi.zipcodebyradius.adapter.CustomListAdapter
 import com.krp.zipcodeapi.zipcodebyradius.databinding.FragmentZipcodeByRadiusBinding
 import com.krp.zipcodeapi.zipcodebyradius.repository.ZipcodeByRadiusRepositoryImpl
 import com.krp.zipcodeapi.zipcodebyradius.viewmodel.ZipcodeByRadiusViewModel
+import kotlinx.coroutines.Dispatchers
 
 /**
  * A simple [Fragment] subclass.
@@ -27,7 +28,7 @@ class ZipcodeByRadiusFragment : Fragment() {
     //Enhancement: Can use Dagger to inject the viewModel.
     private val repository =
         ZipcodeByRadiusRepositoryImpl(ApiConsumer.getInstance().getApiService())
-    private val zipcodeByRadiusViewModel = ZipcodeByRadiusViewModel(repository)
+    private val zipcodeByRadiusViewModel = ZipcodeByRadiusViewModel(repository, Dispatchers.IO)
     private val zipcodeListAdapter = CustomListAdapter()
 
     override fun onCreateView(

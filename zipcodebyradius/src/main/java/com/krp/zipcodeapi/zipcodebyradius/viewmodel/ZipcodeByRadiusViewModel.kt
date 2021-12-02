@@ -10,6 +10,7 @@ import com.krp.zipcodeapi.zipcodebyradius.R
 import com.krp.zipcodeapi.zipcodebyradius.adapter.ZipcodeListItem
 import com.krp.zipcodeapi.zipcodebyradius.model.ZipcodeResponse
 import com.krp.zipcodeapi.zipcodebyradius.repository.ZipcodeByRadiusRepository
+import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
@@ -18,7 +19,8 @@ import kotlinx.coroutines.launch
  */
 // Enhancement: Can use dagger to inject the repository
 class ZipcodeByRadiusViewModel(
-    private val repository: ZipcodeByRadiusRepository
+    private val repository: ZipcodeByRadiusRepository,
+    private val ioDispatcher: CoroutineDispatcher
 ) : ViewModel() {
 
     /**
@@ -82,7 +84,7 @@ class ZipcodeByRadiusViewModel(
      * Uses the zipcode and radius to search for the nearby zipcodes.
      */
     fun onSearch() {
-        viewModelScope.launch(Dispatchers.IO) {
+        viewModelScope.launch(ioDispatcher) {
             val zipCodeValue = zipCode.get() ?: ""
             val radiusValue = radius.get() ?: ""
             _progressBar.postValue(true)
@@ -101,10 +103,9 @@ class ZipcodeByRadiusViewModel(
      */
     private fun onResponseObtained(userProvidedZipCode: String, zipcodeResponse: ZipcodeResponse) {
         zipcodeResponse.zipcodes?.let { zipcodes ->
-            if (zipcodes.isEmpty().not()) {
-                _listItems.postValue(zipcodes.filter {
-                    userProvidedZipCode != it.zipcode
-                }.map { ZipcodeListItem(it) })
+            val filteredList = zipcodes.filter { userProvidedZipCode != it.zipcode }
+            if (filteredList.isEmpty().not()) {
+                _listItems.postValue(filteredList.map { ZipcodeListItem(it) })
             } else {
                 _message.postValue(R.string.no_zipcodes_available_nearby)
             }

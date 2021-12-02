@@ -8,6 +8,7 @@ import com.krp.zipcodeapi.zipcodebyradius.model.ZipcodeResponse
 import com.krp.zipcodeapi.zipcodebyradius.repository.ZipcodeByRadiusRepository
 import io.mockk.coEvery
 import io.mockk.mockk
+import kotlinx.coroutines.test.TestCoroutineDispatcher
 import kotlinx.coroutines.test.runBlockingTest
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
@@ -24,6 +25,7 @@ class ZipcodeByRadiusViewModelTest {
 
     @get:Rule
     val instantExecutionRule = InstantTaskExecutorRule()
+    private val dispatcher = TestCoroutineDispatcher()
 
     private val mockRepository = mockk<ZipcodeByRadiusRepository>(relaxed = true)
 
@@ -31,7 +33,7 @@ class ZipcodeByRadiusViewModelTest {
 
     @Before
     fun setUp() {
-        viewModel = ZipcodeByRadiusViewModel(mockRepository)
+        viewModel = ZipcodeByRadiusViewModel(mockRepository, dispatcher)
         viewModel.zipCode.set(ZIPCODE)
         viewModel.radius.set(RADIUS)
     }
@@ -78,13 +80,20 @@ class ZipcodeByRadiusViewModelTest {
                     any()
                 )
             } returns ResponseStatus.Success(ZipcodeResponse())
-            viewModel.onSearch()
-            viewModel.message.observeForever {
-                assertEquals(
-                    R.string.no_zipcodes_available_nearby,
-                    it
+            verifyNoZipcodesNearby()
+        }
+    }
+
+    @Test
+    fun `should notify to show message with proper resource id if success but data has only user provided code`() {
+        runBlockingTest {
+            coEvery {
+                mockRepository.getZipcodesByRadius(
+                    any(),
+                    any()
                 )
-            }
+            } returns ResponseStatus.Success(ZipcodeResponse(listOf(getZipcode(ZIPCODE))))
+            verifyNoZipcodesNearby()
         }
     }
 
@@ -103,12 +112,22 @@ class ZipcodeByRadiusViewModelTest {
                     any(),
                     any()
                 )
-            } returns ResponseStatus.Failure andThen ResponseStatus.Success(ZipcodeResponse())
+            } returns ResponseStatus.Success(data)
             viewModel.onSearch()
             viewModel.listItems.observeForever {
                 assertTrue(it.isNotEmpty())
                 assertEquals(2, it.size)
             }
+        }
+    }
+
+    private fun verifyNoZipcodesNearby() {
+        viewModel.onSearch()
+        viewModel.message.observeForever {
+            assertEquals(
+                R.string.no_zipcodes_available_nearby,
+                it
+            )
         }
     }
 

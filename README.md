@@ -29,3 +29,6 @@ It uses the Data Binding concept which helps to show different view types in a s
 ### Dependency maintenance
 Currently all the dependencies are being maintained at "root/gradle/support/dependencies.gradle" file.
 This file is applied in the app and feature module.
+
+### Tests
+Test cases for the Repository, ViewModel and other business logic were added in the src/test directory.

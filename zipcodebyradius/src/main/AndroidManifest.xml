@@ -4,7 +4,7 @@
 
     <application>
         <activity
-            android:name=".ZipcodeByRadiusActivity"
+            android:name=".ui.ZipcodeByRadiusActivity"
             android:exported="false" />
     </application>
 

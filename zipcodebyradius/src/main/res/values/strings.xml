@@ -1,1 +1,6 @@
-<resources></resources>
+<resources>
+    <string name="zipcodes_by_radius_title">Please provide the zipcode and radius to search for the near by zipcodes.</string>
+    <string name="zipcode_hint">Zipcode</string>
+    <string name="radius_hint">Radius in Km</string>
+    <string name="search">Search</string>
+</resources>

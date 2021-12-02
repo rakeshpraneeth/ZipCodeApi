@@ -4,7 +4,7 @@ plugins {
     id 'kotlin-android-extensions'
     id 'kotlin-kapt'
 }
-apply from: 'dependencies.gradle'
+apply from: new File(rootProject.projectDir, "/gradle/support/dependencies.gradle")
 
 android {
     compileSdk rootProject.ext.targetSdk
@@ -39,4 +39,10 @@ android {
     testOptions {
         unitTests.returnDefaultValues = true
     }
+}
+
+dependencies {
+
+    // features
+    implementation project(':zipcodebyradius')
 }

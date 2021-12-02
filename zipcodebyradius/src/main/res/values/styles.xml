@@ -8,20 +8,16 @@
         <item name="android:layout_marginEnd">@dimen/spacing_2x</item>
         <item name="android:layout_marginTop">@dimen/spacing_4x</item>
         <item name="android:layout_marginBottom">@dimen/spacing_4x</item>
-        <item name="android:background">@android:color/white</item>
     </style>
 
     <style name="ButtonStyle">
-        <item name="android:textColor">@android:color/white</item>
-        <item name="android:background">@drawable/button_state</item>
         <item name="android:paddingTop">@dimen/spacing_2x</item>
         <item name="android:paddingBottom">@dimen/spacing_2x</item>
         <item name="android:paddingStart">@dimen/spacing_4x</item>
         <item name="android:paddingEnd">@dimen/spacing_4x</item>
     </style>
 
-    <style name="MessageStyle">
-        <item name="android:textColor">@android:color/black</item>
+    <style name="TextStyle">
         <item name="android:textSize">@dimen/text_size_16</item>
     </style>
 

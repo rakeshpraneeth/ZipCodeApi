@@ -1,4 +1,6 @@
 dependencies {
+    // Maintains the dependencies needed for project and the modules.
+
     implementation "androidx.core:core-ktx:${rootProject.ext.coreKtx}"
     implementation "androidx.appcompat:appcompat:${rootProject.ext.appcompat}"
     implementation "com.google.android.material:material:${rootProject.ext.material}"

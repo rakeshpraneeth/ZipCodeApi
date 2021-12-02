@@ -16,7 +16,7 @@
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/city"
-            style="@style/MessageStyle"
+            style="@style/TextStyle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/spacing_2x"
@@ -28,7 +28,7 @@
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/state"
-            style="@style/MessageStyle"
+            style="@style/TextStyle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/spacing_2x"
@@ -40,7 +40,7 @@
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/zipcode"
-            style="@style/MessageStyle"
+            style="@style/TextStyle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/spacing_2x"
@@ -52,7 +52,7 @@
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/distance"
-            style="@style/MessageStyle"
+            style="@style/TextStyle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/spacing_2x"
